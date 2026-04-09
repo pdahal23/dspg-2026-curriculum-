@@ -420,7 +420,7 @@ def gen_html(master_weeks, week_data):
     <div class="cover-orn">&loz; &loz; &loz;</div>
     <h1>{TITLE}<br>Summer 2026</h1>
     <div class="sub"><a href="https://aaec.vt.edu/academics/undergraduate/dspg.html" target="_blank" style="color:inherit;text-decoration:none">Data Science for the Public Good</a> &middot; <a href="https://www.vt.edu/" target="_blank" style="color:inherit;text-decoration:none">Virginia Tech</a></div>
-    <div class="dates">{DATE_RANGE} &middot; Generated {today}, {now_time}</div>
+    <div class="dates">{DATE_RANGE}</div>
   </div>
   <div class="toc-stats">
     <div class="ts"><div class="ts-val">{len(master_weeks)}</div><div class="ts-lbl">Weeks</div></div>
@@ -564,7 +564,7 @@ def gen_html(master_weeks, week_data):
             out.append(f'  <button class="back-btn" onclick="go(\'week-{wn}\')">&larr; Back to Week {wn}</button>\n')
             out.append('</div>\n\n')
 
-    out.append('<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech</div>\n')
+    out.append(f'<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech &middot; Generated {today}, {now_time}</div>\n')
     out.append(f'<script>{JS}</script>\n')
     out.append('</div>\n</body>\n</html>\n')
 
