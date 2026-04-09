@@ -53,14 +53,11 @@ The live site updates within about a minute of pushing.
 
 **Master sheet** — one row per week: `Week · Topics · Important Milestones · Deliverables`
 
-**Week sheets (Weeks 1–3)** — day-by-day layout:
+**Week sheets — day-by-day layout:
 - Col A: date (e.g. `Mon, Jun 8`) to start a new day
 - Col A empty: sub-event row — fill cols B (activity), C (time), E (who)
 - Col A = `Deliverables:` to add a week-level deliverable
-- Days with text like `Memorial Day` or `no activities` are auto-detected as holidays
-
-**Week sheets (Weeks 4–7)** — topic list layout:
-- One row per topic: `Topic title · Instructor · Notes · Timing`
+- Days with text like `Memorial Day` are auto-detected as holidays
 
 **Card colors** are assigned automatically based on keywords:
 - Workshop / Training / Lecture → purple
