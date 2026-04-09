@@ -2,7 +2,7 @@
 
 Interactive curriculum book for the Data Science for the Public Good program at Virginia Tech, Summer 2026.
 
-**Live site:** `https://pdahal23.github.io/dspg-2026-curriculum/dspg_curriculum_2026.html`
+**Live site:** `https://pdahal23.github.io/dspg-2026-curriculum-/dspg_curriculum_2026.html`
 
 ---
 
