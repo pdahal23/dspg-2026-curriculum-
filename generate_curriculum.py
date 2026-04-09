@@ -139,8 +139,6 @@ def ev_card_html(activity, time_val, who, color=None, delay=0):
         if who_text:
             meta_html += f'<span class="ev-who">{who_text}</span>'
         meta_html += "</div>"
-    else:
-        meta_html = '<div class="ev-meta"><span class="ev-time">—</span></div>'
 
     style = f' style="animation-delay:{delay:.2f}s"' if delay else ""
     return (f'<div class="ev-card {clr}"{style}>'
