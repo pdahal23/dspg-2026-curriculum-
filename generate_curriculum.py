@@ -451,7 +451,6 @@ def gen_html(master_weeks, week_data):
   </div>
 """)
 
-    out.append('  <div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech</div>\n')
     out.append("</div>\n\n")
 
     # ----------------------------------------------------------- Week pages
