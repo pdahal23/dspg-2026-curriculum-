@@ -379,13 +379,41 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 @media(max-width:700px){.book{padding:2rem 1.2rem}.cover h1{font-size:1.8rem}.day-grid{grid-template-columns:1fr}}
 """
 
-JS = """
+JS_TEMPLATE = """
+const dayMap = __DAY_MAP__;
+
 function go(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const t=document.getElementById(id);
   if(t){requestAnimationFrame(()=>{t.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})})}
 }
-document.addEventListener('DOMContentLoaded',()=>go('toc'));
+
+function injectDayNav(){
+  const bs='font-family:"JetBrains Mono",monospace;font-size:0.65rem;color:var(--text-dim);background:none;border:1px solid var(--border);border-radius:6px;padding:0.4rem 1rem;cursor:pointer;transition:all 0.2s';
+  const hov='onmouseover="this.style.color=\\'var(--accent)\\';this.style.borderColor=\\'var(--accent)\\'" onmouseout="this.style.color=\\'var(--text-dim)\\';this.style.borderColor=\\'var(--border)\\'"';
+  Object.entries(dayMap).forEach(([id,info])=>{
+    let page=document.getElementById(id);
+    if(!page){
+      page=document.createElement('div');
+      page.className='page';
+      page.id=id;
+      const wn=id.match(/day-(\\d+)/)[1];
+      page.innerHTML='<div class="crumbs"><span class="crumb" onclick="go(\\'toc\\')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go(\\''+info.week+'\\')">Week '+wn+'</span><span class="crumb-sep">/</span><span class="crumb-current">'+info.label+'</span></div><div class="dp-header"><div class="dp-meta">Week '+wn+' &middot; '+info.label+'</div><h2 class="dp-title">'+info.label+'</h2></div><div class="divider"></div><div style="text-align:center;padding:2rem;color:var(--text-muted);font-style:italic;font-size:0.8rem">'+(info.holiday||'No scheduled events')+'</div>';
+      document.querySelector('.book').appendChild(page);
+    }
+    page.querySelectorAll('.back-btn,.day-nav').forEach(b=>b.remove());
+    const nav=document.createElement('div');
+    nav.className='day-nav';
+    nav.style.cssText='display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--border);margin-top:1rem';
+    const prev=info.prev?'<button style="'+bs+'" '+hov+' onclick="go(\\''+info.prev+'\\')">\\u2190 '+dayMap[info.prev].label+'</button>':'<button style="'+bs+'" '+hov+' onclick="go(\\''+info.week+'\\')">\\u2190 Back to Week</button>';
+    const mid='<button style="'+bs+'" '+hov+' onclick="go(\\''+info.week+'\\')">&#9776; Week view</button>';
+    const next=info.next?'<button style="'+bs+'" '+hov+' onclick="go(\\''+info.next+'\\')">' +dayMap[info.next].label+' \\u2192</button>':'<button style="'+bs+'" '+hov+' onclick="go(\\''+info.week+'\\')">Back to Week \\u2192</button>';
+    nav.innerHTML=prev+mid+next;
+    page.appendChild(nav);
+  });
+}
+
+document.addEventListener('DOMContentLoaded',()=>{injectDayNav();go('toc');});
 """
 
 def gen_html(master_weeks, week_data):
@@ -560,11 +588,31 @@ def gen_html(master_weeks, week_data):
             else:
                 out.append('  <div class="ev-list"><div class="no-events">No events recorded for this day.</div></div>\n')
 
-            out.append(f'  <button class="back-btn" onclick="go(\'week-{wn}\')">&larr; Back to Week {wn}</button>\n')
             out.append('</div>\n\n')
 
+    # Build dayMap for navigation
+    import json
+    day_entries = {}
+    for i, (mw, wd) in enumerate(zip(master_weeks, week_data)):
+        wn = mw["num"]
+        days = wd.get("days", [])
+        day_ids = [f"day-{wn}-{di}" for di in range(len(days))]
+        for di, day in enumerate(days):
+            day_id = f"day-{wn}-{di}"
+            entry = {
+                "label": day["date"],
+                "week": f"week-{wn}",
+                "prev": day_ids[di-1] if di > 0 else None,
+                "next": day_ids[di+1] if di < len(days)-1 else None,
+            }
+            if day["holiday"]:
+                entry["holiday"] = h(day["title"])
+            day_entries[day_id] = entry
+
+    js = JS_TEMPLATE.replace("__DAY_MAP__", json.dumps(day_entries))
+
     out.append(f'<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech &middot; Generated {today}, {now_time}</div>\n')
-    out.append(f'<script>{JS}</script>\n')
+    out.append(f'<script>{js}</script>\n')
     out.append('</div>\n</body>\n</html>\n')
 
     return "".join(out)

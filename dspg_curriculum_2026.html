@@ -202,8 +202,8 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="section-hint">Click a day to see full schedule</div>
   <div class="day-grid">
     <div class="dc" onclick="go('day-1-0')">
-      <div class="dc-head"><div class="dc-day">Sun, May 24</div><div class="dc-count">1 event</div></div>
-      <div class="dc-preview">Move into Dorm</div>
+      <div class="dc-head"><div class="dc-day">Sun, May 24</div><div class="dc-count">0 events</div></div>
+      <div class="dc-preview">Move into Dorm: Check in at New Hall West for dorm assignment.</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc holiday">
@@ -241,12 +241,9 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 
 <div class="page" id="day-1-0">
   <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-1')">Week 1</span><span class="crumb-sep">/</span><span class="crumb-current">Sun, May 24</span></div>
-  <div class="dp-header"><div class="dp-meta">Week 1 &middot; Sun, May 24</div><h2 class="dp-title">Move into Dorm</h2></div>
+  <div class="dp-header"><div class="dp-meta">Week 1 &middot; Sun, May 24</div><h2 class="dp-title">Move into Dorm: Check in at New Hall West for dorm assignment.</h2></div>
   <div class="divider"></div>
-  <div class="ev-list">
-  <div class="ev-card ev-blue" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-value">Check in at New Hall West for dorm assignment.</div></div></div>
-  </div>
-  <button class="back-btn" onclick="go('week-1')">&larr; Back to Week 1</button>
+  <div class="ev-list"><div class="no-events">No events recorded for this day.</div></div>
 </div>
 
 <div class="page" id="day-1-2">
@@ -272,7 +269,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
    - R, R Studio, R markdown, Data Camp
    - Look for GIT Ruben Bramasco Video</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-1')">&larr; Back to Week 1</button>
 </div>
 
 <div class="page" id="day-1-4">
@@ -286,7 +282,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 3:00 PM</span></div><div class="ev-value">Interns work on project - discuss research question for the project</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.25s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">3:00 PM - 5:00 PM</span></div><div class="ev-value">Interns work on project - discuss questions to ask stakeholders</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-1')">&larr; Back to Week 1</button>
 </div>
 
 <div class="page" id="day-1-5">
@@ -298,7 +293,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">To be scheduled</span><span class="ev-who">Project Team and Stakeholder</span></div><div class="ev-value">Interns meet with Stakeholder - potential slot 1</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Interns work on project - search, read, and summarize literature</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-1')">&larr; Back to Week 1</button>
 </div>
 
 <div class="page" id="week-2">
@@ -357,7 +351,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on DATACAMP and practice R with Project Data</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Faculty and Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Read literature and refine research question</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-2')">&larr; Back to Week 2</button>
 </div>
 
 <div class="page" id="day-2-1">
@@ -369,7 +362,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-purple" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">9:00 AM - 12:00 PM</span><span class="ev-who">Nathaniel/Jesse</span></div><div class="ev-value">Workshop - R Basics &amp; Training Section 2</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on DATACAMP and practice R with Project Data</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-2')">&larr; Back to Week 2</button>
 </div>
 
 <div class="page" id="day-2-2">
@@ -382,7 +374,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 3:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on DATACAMP and practice Git and Github: Branching, Pull Requests</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">3:00 PM - 5:00 PM</span><span class="ev-who">Faculty and Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Read literature and refine research question</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-2')">&larr; Back to Week 2</button>
 </div>
 
 <div class="page" id="day-2-3">
@@ -395,7 +386,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 3:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on DATACAMP and practice R Shiny and R Markdown</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">3:00 PM - 5:00 PM</span><span class="ev-who">Faculty and Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Read literature and refine research question</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-2')">&larr; Back to Week 2</button>
 </div>
 
 <div class="page" id="day-2-4">
@@ -411,7 +401,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.30s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">3:00 PM - 4:00 PM</span><span class="ev-who">Project Team and Stakeholder</span></div><div class="ev-value">Interns meet with Stakeholder - potential slot 3</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.35s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, make sure to follow Template</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-2')">&larr; Back to Week 2</button>
 </div>
 
 <div class="page" id="week-3">
@@ -469,7 +458,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, Make sure to follow Template, Reflection</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-3')">&larr; Back to Week 3</button>
 </div>
 
 <div class="page" id="day-3-1">
@@ -482,7 +470,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, Make sure to follow Template, Reflection</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-3')">&larr; Back to Week 3</button>
 </div>
 
 <div class="page" id="day-3-2">
@@ -494,7 +481,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, Make sure to follow Template, Reflection</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-3')">&larr; Back to Week 3</button>
 </div>
 
 <div class="page" id="day-3-3">
@@ -506,7 +492,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, Make sure to follow Template, Reflection</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-3')">&larr; Back to Week 3</button>
 </div>
 
 <div class="page" id="day-3-4">
@@ -518,7 +503,6 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
   <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, Make sure to follow Template, Reflection</div></div></div>
   </div>
-  <button class="back-btn" onclick="go('week-3')">&larr; Back to Week 3</button>
 </div>
 
 <div class="page" id="week-4">
@@ -658,14 +642,42 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="wp-nav"><button class="nav-btn" onclick="go('week-9')">&larr; Week 9</button><button class="nav-btn" onclick="go('toc')">Contents &#8617;</button></div>
 </div>
 
-<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech &middot; Generated April 09, 2026, 02:43 PM</div>
+<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech &middot; Generated April 09, 2026, 06:46 PM</div>
 <script>
+const dayMap = {"day-1-0": {"label": "Sun, May 24", "week": "week-1", "prev": null, "next": "day-1-1"}, "day-1-1": {"label": "Mon, May 25", "week": "week-1", "prev": "day-1-0", "next": "day-1-2", "holiday": "Memorial day - no activities"}, "day-1-2": {"label": "Tue, May 26", "week": "week-1", "prev": "day-1-1", "next": "day-1-3"}, "day-1-3": {"label": "Wed, May 27", "week": "week-1", "prev": "day-1-2", "next": "day-1-4", "holiday": "Orientation with University - Full Day Event"}, "day-1-4": {"label": "Thu, May 28", "week": "week-1", "prev": "day-1-3", "next": "day-1-5"}, "day-1-5": {"label": "Fri, May 29", "week": "week-1", "prev": "day-1-4", "next": null}, "day-2-0": {"label": "Mon, Jun 1", "week": "week-2", "prev": null, "next": "day-2-1"}, "day-2-1": {"label": "Tue, Jun 2", "week": "week-2", "prev": "day-2-0", "next": "day-2-2"}, "day-2-2": {"label": "Wed, Jun 3", "week": "week-2", "prev": "day-2-1", "next": "day-2-3"}, "day-2-3": {"label": "Thu, Jun 4", "week": "week-2", "prev": "day-2-2", "next": "day-2-4"}, "day-2-4": {"label": "Fri, Jun 5", "week": "week-2", "prev": "day-2-3", "next": null}, "day-3-0": {"label": "Mon, Jun 8", "week": "week-3", "prev": null, "next": "day-3-1"}, "day-3-1": {"label": "Tue, Jun 9", "week": "week-3", "prev": "day-3-0", "next": "day-3-2"}, "day-3-2": {"label": "Wed, Jun 10", "week": "week-3", "prev": "day-3-1", "next": "day-3-3"}, "day-3-3": {"label": "Thu, Jun 11", "week": "week-3", "prev": "day-3-2", "next": "day-3-4"}, "day-3-4": {"label": "Fri, Jun 12", "week": "week-3", "prev": "day-3-3", "next": null}};
+
 function go(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const t=document.getElementById(id);
   if(t){requestAnimationFrame(()=>{t.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})})}
 }
-document.addEventListener('DOMContentLoaded',()=>go('toc'));
+
+function injectDayNav(){
+  const bs='font-family:"JetBrains Mono",monospace;font-size:0.65rem;color:var(--text-dim);background:none;border:1px solid var(--border);border-radius:6px;padding:0.4rem 1rem;cursor:pointer;transition:all 0.2s';
+  const hov='onmouseover="this.style.color=\'var(--accent)\';this.style.borderColor=\'var(--accent)\'" onmouseout="this.style.color=\'var(--text-dim)\';this.style.borderColor=\'var(--border)\'"';
+  Object.entries(dayMap).forEach(([id,info])=>{
+    let page=document.getElementById(id);
+    if(!page){
+      page=document.createElement('div');
+      page.className='page';
+      page.id=id;
+      const wn=id.match(/day-(\d+)/)[1];
+      page.innerHTML='<div class="crumbs"><span class="crumb" onclick="go(\'toc\')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go(\''+info.week+'\')">Week '+wn+'</span><span class="crumb-sep">/</span><span class="crumb-current">'+info.label+'</span></div><div class="dp-header"><div class="dp-meta">Week '+wn+' &middot; '+info.label+'</div><h2 class="dp-title">'+info.label+'</h2></div><div class="divider"></div><div style="text-align:center;padding:2rem;color:var(--text-muted);font-style:italic;font-size:0.8rem">'+(info.holiday||'No scheduled events')+'</div>';
+      document.querySelector('.book').appendChild(page);
+    }
+    page.querySelectorAll('.back-btn,.day-nav').forEach(b=>b.remove());
+    const nav=document.createElement('div');
+    nav.className='day-nav';
+    nav.style.cssText='display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid var(--border);margin-top:1rem';
+    const prev=info.prev?'<button style="'+bs+'" '+hov+' onclick="go(\''+info.prev+'\')">\u2190 '+dayMap[info.prev].label+'</button>':'<button style="'+bs+'" '+hov+' onclick="go(\''+info.week+'\')">\u2190 Back to Week</button>';
+    const mid='<button style="'+bs+'" '+hov+' onclick="go(\''+info.week+'\')">&#9776; Week view</button>';
+    const next=info.next?'<button style="'+bs+'" '+hov+' onclick="go(\''+info.next+'\')">' +dayMap[info.next].label+' \u2192</button>':'<button style="'+bs+'" '+hov+' onclick="go(\''+info.week+'\')">Back to Week \u2192</button>';
+    nav.innerHTML=prev+mid+next;
+    page.appendChild(nav);
+  });
+}
+
+document.addEventListener('DOMContentLoaded',()=>{injectDayNav();go('toc');});
 </script>
 </div>
 </body>
