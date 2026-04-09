@@ -216,6 +216,7 @@ def parse_week_sheet(ws):
 
     if has_days:
         current_day = None
+        in_deliverables = False
         for row in rows[1:]:  # skip title row
             col0 = str(row[0]).strip() if row[0] is not None else ""
             col1 = str(row[1]).strip() if row[1] is not None else ""
@@ -228,8 +229,14 @@ def parse_week_sheet(ws):
 
             # Week-level deliverable rows
             if col0.lower().startswith("deliverable"):
+                in_deliverables = True
                 if col1:
                     week_deliverables.append(col1)
+                continue
+
+            # Continuation of deliverables (col0 empty, in_deliverables mode)
+            if in_deliverables and col0 == "" and col1:
+                week_deliverables.append(col1)
                 continue
 
             # Day header row (col0 is non-empty and looks like a date)
