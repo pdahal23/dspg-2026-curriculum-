@@ -37,7 +37,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 .chapter::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);transition:width 0.25s}
 .chapter:hover{border-color:var(--accent);background:var(--page-edge);transform:translateX(4px);box-shadow:0 2px 12px rgba(0,0,0,0.06)}.chapter:hover::before{width:3px}.chapter:hover .ch-arrow{opacity:1;transform:translateX(0)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.ch-left{flex:1}.ch-num{font-size:0.6rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.25rem;font-weight:500}
+.ch-left{flex:1}.ch-num{font-size:0.58rem;display:inline-block;background:var(--accent-glow);border:1px solid var(--accent-border);color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.35rem;font-weight:600;padding:0.1rem 0.5rem;border-radius:6px}
 .ch-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.15rem;color:var(--text);margin-bottom:0.3rem;line-height:1.3}
 .ch-meta{font-size:0.58rem;color:var(--text-muted);display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap}
 .ch-deliv{font-size:0.52rem;padding:0.1rem 0.45rem;border-radius:8px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
@@ -103,9 +103,9 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
     <div class="dates">May – August 2026</div>
   </div>
   <div class="toc-stats">
-    <div class="ts"><div class="ts-val">10</div><div class="ts-lbl">Weeks</div></div>
-    <div class="ts"><div class="ts-val">7</div><div class="ts-lbl">Milestones</div></div>
-    <div class="ts"><div class="ts-val">1</div><div class="ts-lbl">Deliverables</div></div>
+    <div class="ts"><div class="ts-val" style="color:var(--accent)">10</div><div class="ts-lbl" style="background:var(--accent-glow);border:1px solid var(--accent-border);color:var(--accent);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#128197; Weeks</div></div>
+    <div class="ts"><div class="ts-val" style="color:var(--blue)">7</div><div class="ts-lbl" style="background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#127937; Milestones</div></div>
+    <div class="ts"><div class="ts-val" style="color:var(--green)">1</div><div class="ts-lbl" style="background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#9989; Deliverables</div></div>
   </div>
   <div class="toc-heading">Table of Contents</div>
   <div class="chapter" onclick="go('week-1')" style="animation-delay:0.15s">
@@ -203,7 +203,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="day-grid">
     <div class="dc" onclick="go('day-1-0')">
       <div class="dc-head"><div class="dc-day">Sun, May 24</div><div class="dc-count">0 events</div></div>
-      <div class="dc-preview"></div>
+      <div class="dc-preview">Move into Dorm: Check in at New Hall West for dorm assignment.</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc holiday">
@@ -212,8 +212,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
     </div>
     <div class="dc" onclick="go('day-1-2')">
       <div class="dc-head"><div class="dc-day">Tue, May 26</div><div class="dc-count">5 events</div></div>
-      <div class="dc-preview">ONBOARDING: 
-    -Check that the partici &middot; COFFEE &amp; DONUTS, Welcome Interns - i &middot; Faculty Present Projects to the Interns</div>
+      <div class="dc-preview">Onboarding and Introduction</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc holiday">
@@ -222,12 +221,12 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
     </div>
     <div class="dc" onclick="go('day-1-4')">
       <div class="dc-head"><div class="dc-day">Thu, May 28</div><div class="dc-count">5 events</div></div>
-      <div class="dc-preview">Office hour &middot; Workshop - Introduction to Research &middot; Workshop - How to work with stakeholders</div>
+      <div class="dc-preview">Introduction to Research</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc" onclick="go('day-1-5')">
       <div class="dc-head"><div class="dc-day">Fri, May 29</div><div class="dc-count">3 events</div></div>
-      <div class="dc-preview">Workshop - How to conduct literature rev &middot; Interns meet with Stakeholder - potentia &middot; Interns work on project - search, read, </div>
+      <div class="dc-preview">Introduction to Literature Review and Meeting Stakeholders</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
   </div>
@@ -313,27 +312,27 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="day-grid">
     <div class="dc" onclick="go('day-2-0')">
       <div class="dc-head"><div class="dc-day">Mon, Jun 1</div><div class="dc-count">4 events</div></div>
-      <div class="dc-preview">Office hour &middot; Workshop - R Basics &amp; Training Secti &middot; Interns work on DATACAMP and practice R </div>
+      <div class="dc-preview">R Basics &amp; Training</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc" onclick="go('day-2-1')">
       <div class="dc-head"><div class="dc-day">Tue, Jun 2</div><div class="dc-count">3 events</div></div>
-      <div class="dc-preview">Office hour &middot; Workshop - R Basics &amp; Training Secti &middot; Interns work on DATACAMP and practice R </div>
+      <div class="dc-preview">R Basics &amp; Training</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc" onclick="go('day-2-2')">
       <div class="dc-head"><div class="dc-day">Wed, Jun 3</div><div class="dc-count">4 events</div></div>
-      <div class="dc-preview">Office hour &middot; Workshop - GIT Basics &amp; Training &middot; Interns work on DATACAMP and practice Gi</div>
+      <div class="dc-preview">GIT Basics &amp; Training</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc" onclick="go('day-2-3')">
       <div class="dc-head"><div class="dc-day">Thu, Jun 4</div><div class="dc-count">4 events</div></div>
-      <div class="dc-preview">Office hour &middot; Workshop - R Shiny and R Markdown Basics &middot; Interns work on DATACAMP and practice R </div>
+      <div class="dc-preview">Introduction to Research</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc" onclick="go('day-2-4')">
       <div class="dc-head"><div class="dc-day">Fri, Jun 5</div><div class="dc-count">7 events</div></div>
-      <div class="dc-preview">Office hour &middot; Workshop - Coding Organization &amp; Sta &middot; Workshop - Organizing and Documenting Da</div>
+      <div class="dc-preview">Introduction to Literature Review and Meeting Stakeholders</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
   </div>
@@ -426,27 +425,27 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="day-grid">
     <div class="dc" onclick="go('day-3-0')">
       <div class="dc-head"><div class="dc-day">Mon, Jun 8</div><div class="dc-count">4 events</div></div>
-      <div class="dc-preview">Interns meet with Grad Fellow to Assign  &middot; AI &amp; Ethics &middot; Interns work on Project - Work on data a</div>
+      <div class="dc-preview">AI &amp; Ethics Workship and Work on data</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc" onclick="go('day-3-1')">
       <div class="dc-head"><div class="dc-day">Tue, Jun 9</div><div class="dc-count">4 events</div></div>
-      <div class="dc-preview">Workshop - Structured and Large Dataset &middot; Interns work on Project - Work on data a &middot; Interns work on Project - Work on data a</div>
+      <div class="dc-preview">Structured and Large Dataset and Work on project</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc" onclick="go('day-3-2')">
       <div class="dc-head"><div class="dc-day">Wed, Jun 10</div><div class="dc-count">3 events</div></div>
-      <div class="dc-preview">Workshop - Transportation and Health Acc &middot; Interns work on Project - Work on data a &middot; Push progress to GIT, Make sure to follo</div>
+      <div class="dc-preview">Transportation and Health Access Data</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc" onclick="go('day-3-3')">
       <div class="dc-head"><div class="dc-day">Thu, Jun 11</div><div class="dc-count">3 events</div></div>
-      <div class="dc-preview">Workshop - Remote Sensing Data &middot; Interns work on Project - Work on data a &middot; Push progress to GIT, Make sure to follo</div>
+      <div class="dc-preview">Remote Sensing Data</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
     <div class="dc" onclick="go('day-3-4')">
       <div class="dc-head"><div class="dc-day">Fri, Jun 12</div><div class="dc-count">3 events</div></div>
-      <div class="dc-preview">Progress Report &middot; Interns work on Project - Work on data a &middot; Push progress to GIT, Make sure to follo</div>
+      <div class="dc-preview">Text data (optional)</div>
       <div class="dc-open">Open &rarr;</div>
     </div>
   </div>
@@ -657,7 +656,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
   <div class="wp-nav"><button class="nav-btn" onclick="go('week-9')">&larr; Week 9</button><button class="nav-btn" onclick="go('toc')">Contents &#8617;</button></div>
 </div>
 
-<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech &middot; Generated April 09, 2026, 01:21 PM</div>
+<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech &middot; Generated April 09, 2026, 02:35 PM</div>
 <script>
 function go(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));

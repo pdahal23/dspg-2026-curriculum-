@@ -48,7 +48,7 @@ SUBTITLE     = "Data Science for the Public Good · Virginia Tech"
 DATE_RANGE   = "May – August 2026"
 
 # Keywords that mark a day as a holiday / no-work day
-HOLIDAY_KEYWORDS = ["holiday", "no activities", "full day event", "orientation with university",
+HOLIDAY_KEYWORDS = ["holiday", "no activities", "full day event",
                     "memorial day", "independence day", "labor day", "thanksgiving"]
 
 # Keywords that hint a row is a Workshop (→ purple card)
@@ -323,7 +323,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 .chapter::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);transition:width 0.25s}
 .chapter:hover{border-color:var(--accent);background:var(--page-edge);transform:translateX(4px);box-shadow:0 2px 12px rgba(0,0,0,0.06)}.chapter:hover::before{width:3px}.chapter:hover .ch-arrow{opacity:1;transform:translateX(0)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.ch-left{flex:1}.ch-num{font-size:0.6rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.25rem;font-weight:500}
+.ch-left{flex:1}.ch-num{font-size:0.58rem;display:inline-block;background:var(--accent-glow);border:1px solid var(--accent-border);color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.35rem;font-weight:600;padding:0.1rem 0.5rem;border-radius:6px}
 .ch-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.15rem;color:var(--text);margin-bottom:0.3rem;line-height:1.3}
 .ch-meta{font-size:0.58rem;color:var(--text-muted);display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap}
 .ch-deliv{font-size:0.52rem;padding:0.1rem 0.45rem;border-radius:8px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
@@ -423,9 +423,9 @@ def gen_html(master_weeks, week_data):
     <div class="dates">{DATE_RANGE}</div>
   </div>
   <div class="toc-stats">
-    <div class="ts"><div class="ts-val">{len(master_weeks)}</div><div class="ts-lbl">Weeks</div></div>
-    <div class="ts"><div class="ts-val">{total_milestones}</div><div class="ts-lbl">Milestones</div></div>
-    <div class="ts"><div class="ts-val">{sum(1 for m in master_weeks if m['deliverable'])}</div><div class="ts-lbl">Deliverables</div></div>
+    <div class="ts"><div class="ts-val" style="color:var(--accent)">{len(master_weeks)}</div><div class="ts-lbl" style="background:var(--accent-glow);border:1px solid var(--accent-border);color:var(--accent);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#128197; Weeks</div></div>
+    <div class="ts"><div class="ts-val" style="color:var(--blue)">{total_milestones}</div><div class="ts-lbl" style="background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#127937; Milestones</div></div>
+    <div class="ts"><div class="ts-val" style="color:var(--green)">{sum(1 for m in master_weeks if m['deliverable'])}</div><div class="ts-lbl" style="background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#9989; Deliverables</div></div>
   </div>
   <div class="toc-heading">Table of Contents</div>
 """)
@@ -495,7 +495,6 @@ def gen_html(master_weeks, week_data):
             for di, day in enumerate(days):
                 day_id = f"day-{wn}-{di}"
                 n_ev = len(day["events"])
-                preview = " &middot; ".join(h(e["activity"])[:40] for e in day["events"][:3] if e["activity"])
                 if day["holiday"]:
                     out.append(f'    <div class="dc holiday">\n'
                                f'      <div class="dc-head"><div class="dc-day">{h(day["date"])}</div>'
@@ -506,7 +505,7 @@ def gen_html(master_weeks, week_data):
                     out.append(f'    <div class="dc" onclick="go(\'{day_id}\')">\n'
                                f'      <div class="dc-head"><div class="dc-day">{h(day["date"])}</div>'
                                f'<div class="dc-count">{n_ev} event{"s" if n_ev != 1 else ""}</div></div>\n'
-                               f'      <div class="dc-preview">{preview}</div>\n'
+                               f'      <div class="dc-preview">{h(day["title"])}</div>\n'
                                f'      <div class="dc-open">Open &rarr;</div>\n'
                                f'    </div>\n')
             out.append('  </div>\n')
