@@ -390,6 +390,7 @@ document.addEventListener('DOMContentLoaded',()=>go('toc'));
 
 def gen_html(master_weeks, week_data):
     today = datetime.date.today().strftime("%B %d, %Y")
+    now_time = datetime.datetime.now().strftime("%I:%M %p")
 
     # Count stats
     total_topics = sum(
@@ -419,7 +420,7 @@ def gen_html(master_weeks, week_data):
     <div class="cover-orn">&loz; &loz; &loz;</div>
     <h1>{TITLE}<br>Summer 2026</h1>
     <div class="sub"><a href="https://aaec.vt.edu/academics/undergraduate/dspg.html" target="_blank" style="color:inherit;text-decoration:none">Data Science for the Public Good</a> &middot; <a href="https://www.vt.edu/" target="_blank" style="color:inherit;text-decoration:none">Virginia Tech</a></div>
-    <div class="dates">{DATE_RANGE} &middot; Generated {today}</div>
+    <div class="dates">{DATE_RANGE} &middot; Generated {today}, {now_time}</div>
   </div>
   <div class="toc-stats">
     <div class="ts"><div class="ts-val">{len(master_weeks)}</div><div class="ts-lbl">Weeks</div></div>
