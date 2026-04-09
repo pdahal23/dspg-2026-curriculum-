@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSPG Curriculum 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fff;--page:#f8f9fa;--page-edge:#edf0f3;--border:#e2e5e9;--border-light:#ced4da;
+  --text:#1a1a2e;--text-dim:#495057;--text-muted:#868e96;
+  --accent:#2b5797;--accent-glow:rgba(43,87,151,0.06);
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,0.05);--blue-border:rgba(37,99,235,0.15);
+  --green:#16a34a;--green-bg:rgba(22,163,74,0.05);--green-border:rgba(22,163,74,0.15);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,0.05);--purple-border:rgba(124,58,237,0.15);
+  --deadline:#dc2626;--holiday:#d97706;--holiday-bg:rgba(217,119,6,0.06)
+}
+body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.book{max-width:920px;margin:0 auto;padding:3rem 2rem 4rem}
+.crumbs{display:flex;align-items:center;gap:0.4rem;margin-bottom:1.8rem;font-size:0.62rem;flex-wrap:wrap}
+.crumb{color:var(--accent);cursor:pointer;transition:color 0.2s}.crumb:hover{color:var(--text)}
+.crumb-sep{color:var(--text-muted)}.crumb-current{color:var(--text-dim)}
+.page{display:none;animation:pageIn 0.4s ease both}.page.active{display:block}
+@keyframes pageIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+.cover{text-align:center;padding:2rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
+.cover-orn{font-size:1.4rem;color:var(--accent);letter-spacing:0.5em;margin-bottom:1rem}
+.cover h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2.4rem;letter-spacing:-0.02em;color:var(--text);line-height:1.15;margin-bottom:0.5rem}
+.cover .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--text-dim);margin-bottom:1rem}
+.cover .dates{font-size:0.65rem;color:var(--text-muted);letter-spacing:0.15em;text-transform:uppercase}
+.toc-stats{display:flex;justify-content:center;gap:2.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.ts{text-align:center}.ts-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.8rem;color:var(--accent)}
+.ts-lbl{font-size:0.58rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em}
+.toc-heading{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:0.85rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.2em;margin-bottom:1.2rem;text-align:center}
+.chapter{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.4rem;margin-bottom:0.5rem;background:var(--page);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.25s ease;animation:fadeIn 0.5s ease both;position:relative;overflow:hidden}
+.chapter::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);transition:width 0.25s}
+.chapter:hover{border-color:var(--accent);background:var(--page-edge);transform:translateX(4px);box-shadow:0 2px 12px rgba(0,0,0,0.06)}.chapter:hover::before{width:3px}.chapter:hover .ch-arrow{opacity:1;transform:translateX(0)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.ch-left{flex:1}.ch-num{font-size:0.6rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.25rem;font-weight:500}
+.ch-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.15rem;color:var(--text);margin-bottom:0.3rem;line-height:1.3}
+.ch-meta{font-size:0.58rem;color:var(--text-muted);display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap}
+.ch-deliv{font-size:0.52rem;padding:0.1rem 0.45rem;border-radius:8px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+.ch-milestone{font-size:0.52rem;padding:0.1rem 0.45rem;border-radius:8px;background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
+.ch-right{display:flex;align-items:center;margin-left:1rem}
+.ch-arrow{font-size:1.1rem;color:var(--accent);opacity:0;transform:translateX(-6px);transition:all 0.25s}
+.wp-header{margin-bottom:1.5rem}.wp-label{font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.2em;margin-bottom:0.4rem;font-weight:500}
+.wp-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2rem;color:var(--text);line-height:1.2;margin-bottom:0.5rem}
+.wp-milestone{display:inline-block;font-size:0.62rem;padding:0.3rem 0.8rem;border-radius:6px;background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue);margin-bottom:0.5rem}
+.wp-deliv-badge{display:inline-block;font-size:0.62rem;padding:0.3rem 0.8rem;border-radius:6px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);margin-bottom:0.5rem;margin-left:0.4rem}
+.divider{height:1px;background:var(--border);margin-bottom:1.5rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.3rem}
+.section-hint{font-size:0.6rem;color:var(--text-muted);margin-bottom:1.2rem;font-style:italic}
+.day-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0.8rem;margin-bottom:2rem}
+.dc{background:var(--page);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.3rem;transition:all 0.2s;animation:cardIn 0.4s ease both;cursor:pointer}
+.dc:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.07);border-color:var(--border-light)}
+.dc.holiday{cursor:default;background:var(--holiday-bg);border-color:rgba(217,119,6,0.15)}.dc.holiday:hover{transform:none;box-shadow:none}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.dc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
+.dc-day{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:0.9rem;color:var(--text)}
+.dc-count{font-size:0.55rem;color:var(--text-muted)}.dc-preview{font-size:0.68rem;color:var(--text-dim);line-height:1.5;margin-bottom:0.3rem}
+.dc-badge{font-size:0.5rem;padding:0.12rem 0.4rem;border-radius:8px}.holiday-badge{background:var(--holiday-bg);color:var(--holiday);border:1px solid rgba(217,119,6,0.2)}
+.dc-open{font-size:0.58rem;color:var(--accent);opacity:0;transition:opacity 0.2s}.dc:hover .dc-open{opacity:1}
+.topic-list{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:2rem}
+.tl-item{background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:8px;padding:0.8rem 1rem}
+.tl-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:0.9rem;color:var(--text);margin-bottom:0.2rem}
+.tl-meta{display:flex;gap:0.7rem;flex-wrap:wrap;font-size:0.6rem}
+.tl-inst{color:var(--purple)}.tl-time{color:var(--text-muted)}.tl-note{color:var(--text-muted);font-style:italic}
+.dp-header{margin-bottom:1.8rem}.dp-meta{font-size:0.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.4rem;font-weight:500}
+.dp-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2.2rem;color:var(--text);line-height:1.15}
+.holiday-banner{text-align:center;padding:2.5rem;background:var(--holiday-bg);border:1px solid rgba(217,119,6,0.15);border-radius:12px;font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--holiday);margin-bottom:2rem}
+.ev-list{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2rem}
+.ev-card{background:var(--page);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem 1rem 1.5rem;display:flex;position:relative;overflow:hidden;animation:cardIn 0.35s ease both}
+.ev-bar{position:absolute;left:0;top:0;width:4px;height:100%}
+.ev-blue .ev-bar{background:var(--blue)}.ev-blue{background:var(--blue-bg)}
+.ev-green .ev-bar{background:var(--green)}.ev-green{background:var(--green-bg)}
+.ev-purple .ev-bar{background:var(--purple)}.ev-purple{background:var(--purple-bg)}
+.ev-content{flex:1}
+.ev-meta{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.35rem}
+.ev-time{font-size:0.72rem;font-weight:500;color:var(--text-dim);letter-spacing:0.02em}
+.ev-who{font-size:0.66rem;font-weight:500;padding:0.1rem 0.5rem;border-radius:20px;white-space:nowrap}
+.ev-blue .ev-who{background:rgba(37,99,235,0.1);color:var(--blue)}
+.ev-green .ev-who{background:rgba(22,163,74,0.1);color:var(--green)}
+.ev-purple .ev-who{background:rgba(124,58,237,0.12);color:var(--purple)}
+.ev-label{font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.25rem}
+.ev-value{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1rem;color:var(--text);line-height:1.4;white-space:pre-wrap}
+.no-events{text-align:center;padding:2rem;color:var(--text-muted);font-style:italic;font-size:0.8rem}
+.wp-nav{display:flex;justify-content:space-between;padding-top:1.5rem;border-top:1px solid var(--border)}
+.nav-btn,.back-btn{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-dim);background:none;border:1px solid var(--border);border-radius:6px;padding:0.4rem 1rem;cursor:pointer;transition:all 0.2s}
+.nav-btn:hover,.back-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-glow)}
+.back-btn{margin-top:1.5rem}
+.footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--border);text-align:center;font-size:0.58rem;color:var(--text-muted)}
+@media(max-width:700px){.book{padding:2rem 1.2rem}.cover h1{font-size:1.8rem}.day-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="book">
+<div class="page" id="toc">
+  <div class="cover">
+    <div class="cover-orn">&loz; &loz; &loz;</div>
+    <h1>DSPG 2026<br>Curriculum</h1>
+    <div class="sub"><a href="https://aaec.vt.edu/academics/undergraduate/dspg.html" target="_blank" style="color:inherit;text-decoration:none">Data Science for the Public Good</a> &middot; <a href="https://www.vt.edu/" target="_blank" style="color:inherit;text-decoration:none">Virginia Tech</a></div>
+    <div class="dates">May – August 2026 &middot; Generated April 09, 2026, 11:38 AM</div>
+  </div>
+  <div class="toc-stats">
+    <div class="ts"><div class="ts-val">10</div><div class="ts-lbl">Weeks</div></div>
+    <div class="ts"><div class="ts-val">7</div><div class="ts-lbl">Milestones</div></div>
+    <div class="ts"><div class="ts-val">1</div><div class="ts-lbl">Deliverables</div></div>
+  </div>
+  <div class="toc-heading">Table of Contents</div>
+  <div class="chapter" onclick="go('week-1')" style="animation-delay:0.15s">
+    <div class="ch-left">
+      <div class="ch-num">Week 1</div>
+      <div class="ch-title">Onboarding and Basic Research skills</div>
+      <div class="ch-meta">Sun, May 24 &ndash; Fri, May 29 &middot; 4 days</div>
+    </div>
+    <div class="ch-right"><div class="ch-arrow">&rarr;</div></div>
+  </div>
+  <div class="chapter" onclick="go('week-2')" style="animation-delay:0.2s">
+    <div class="ch-left">
+      <div class="ch-num">Week 2</div>
+      <div class="ch-title">Basic Programming skills</div>
+      <div class="ch-meta">Mon, Jun 1 &ndash; Fri, Jun 5 &middot; 5 days</div>
+    </div>
+    <div class="ch-right"><div class="ch-arrow">&rarr;</div></div>
+  </div>
+  <div class="chapter" onclick="go('week-3')" style="animation-delay:0.25s">
+    <div class="ch-left">
+      <div class="ch-num">Week 3</div>
+      <div class="ch-title">Data skills - multimodality</div>
+      <div class="ch-meta">Mon, Jun 8 &ndash; Fri, Jun 12 &middot; 5 days</div>
+    </div>
+    <div class="ch-right"><div class="ch-arrow">&rarr;</div></div>
+  </div>
+  <div class="chapter" onclick="go('week-4')" style="animation-delay:0.30000000000000004s">
+    <div class="ch-left">
+      <div class="ch-num">Week 4</div>
+      <div class="ch-title">Data skills - multimodlity</div>
+      <div class="ch-meta"></div>
+    </div>
+    <div class="ch-right"><div class="ch-arrow">&rarr;</div></div>
+  </div>
+  <div class="chapter" onclick="go('week-5')" style="animation-delay:0.35s">
+    <div class="ch-left">
+      <div class="ch-num">Week 5</div>
+      <div class="ch-title">Data Exploratory skills &amp; Modeling skills</div>
+      <div class="ch-meta"></div>
+    </div>
+    <div class="ch-right"><div class="ch-arrow">&rarr;</div></div>
+  </div>
+  <div class="chapter" onclick="go('week-6')" style="animation-delay:0.4s">
+    <div class="ch-left">
+      <div class="ch-num">Week 6</div>
+      <div class="ch-title">Advanced skills and topics</div>
+      <div class="ch-meta"></div>
+    </div>
+    <div class="ch-right"><div class="ch-arrow">&rarr;</div></div>
+  </div>
+  <div class="chapter" onclick="go('week-7')" style="animation-delay:0.45000000000000007s">
+    <div class="ch-left">
+      <div class="ch-num">Week 7</div>
+      <div class="ch-title">Analysis</div>
+      <div class="ch-meta"></div>
+    </div>
+    <div class="ch-right"><div class="ch-arrow">&rarr;</div></div>
+  </div>
+  <div class="chapter" onclick="go('week-8')" style="animation-delay:0.5s">
+    <div class="ch-left">
+      <div class="ch-num">Week 8</div>
+      <div class="ch-title">Analysis (finalize results, make progress on Kohl Insights)</div>
+      <div class="ch-meta"></div>
+    </div>
+    <div class="ch-right"><div class="ch-arrow">&rarr;</div></div>
+  </div>
+  <div class="chapter" onclick="go('week-9')" style="animation-delay:0.55s">
+    <div class="ch-left">
+      <div class="ch-num">Week 9</div>
+      <div class="ch-title">Finalize R shiny + poster, make progress on Kohl Insights</div>
+      <div class="ch-meta"></div>
+    </div>
+    <div class="ch-right"><div class="ch-arrow">&rarr;</div></div>
+  </div>
+  <div class="chapter" onclick="go('week-10')" style="animation-delay:0.6s">
+    <div class="ch-left">
+      <div class="ch-num">Week 10</div>
+      <div class="ch-title">Finalize Github, prepare for final presentation at Summer VT Undergraduate Research Symposium, finalize Kohl Insights</div>
+      <div class="ch-meta"></div>
+    </div>
+    <div class="ch-right"><div class="ch-arrow">&rarr;</div></div>
+  </div>
+  <div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech</div>
+</div>
+
+<div class="page" id="week-1">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb-current">Week 1</span></div>
+  <div class="wp-header">
+    <div class="wp-label">Week 1</div>
+    <h2 class="wp-title">Onboarding and Basic Research skills</h2>
+    <span class="wp-milestone">&#127937; Onboarding and Project Assignment</span><span class="wp-deliv-badge">&#9989; A work plan, Git hub</span>
+  </div>
+  <div class="divider"></div>
+  <div class="section-title">Days</div>
+  <div class="section-hint">Click a day to see full schedule</div>
+  <div class="day-grid">
+    <div class="dc" onclick="go('day-1-0')">
+      <div class="dc-head"><div class="dc-day">Sun, May 24</div><div class="dc-count">0 events</div></div>
+      <div class="dc-preview"></div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc holiday">
+      <div class="dc-head"><div class="dc-day">Mon, May 25</div><span class="dc-badge holiday-badge">Holiday</span></div>
+      <div class="dc-preview">Memorial day - no activities</div>
+    </div>
+    <div class="dc" onclick="go('day-1-2')">
+      <div class="dc-head"><div class="dc-day">Tue, May 26</div><div class="dc-count">5 events</div></div>
+      <div class="dc-preview">ONBOARDING: 
+    -Check that the partici &middot; COFFEE &amp; DONUTS, Welcome Interns - i &middot; Faculty Present Projects to the Interns</div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc holiday">
+      <div class="dc-head"><div class="dc-day">Wed, May 27</div><span class="dc-badge holiday-badge">Holiday</span></div>
+      <div class="dc-preview">Orientation with University - Full Day Event</div>
+    </div>
+    <div class="dc" onclick="go('day-1-4')">
+      <div class="dc-head"><div class="dc-day">Thu, May 28</div><div class="dc-count">5 events</div></div>
+      <div class="dc-preview">Office hour &middot; Workshop - Introduction to Research &middot; Workshop - How to work with stakeholders</div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc" onclick="go('day-1-5')">
+      <div class="dc-head"><div class="dc-day">Fri, May 29</div><div class="dc-count">4 events</div></div>
+      <div class="dc-preview">Workshop - How to conduct literature rev &middot; Interns meet with Stakeholder - potentia &middot; Interns work on project - search, read, </div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-title">Week Deliverables</div>
+  <div class="ev-list" style="margin-top:0.8rem">
+<div class="ev-card ev-green"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">—</span></div><div class="ev-value">Start a draft of literature review</div></div></div>
+  </div>
+  <div class="wp-nav"><button class="nav-btn" onclick="go('toc')">&larr; Contents</button><button class="nav-btn" onclick="go('week-2')">Week 2 &rarr;</button></div>
+</div>
+
+<div class="page" id="day-1-0">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-1')">Week 1</span><span class="crumb-sep">/</span><span class="crumb-current">Sun, May 24</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 1 &middot; Sun, May 24</div><h2 class="dp-title">Move into Dorm: Check in at New Hall West for dorm assignment.</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list"><div class="no-events">No events recorded for this day.</div></div>
+  <button class="back-btn" onclick="go('week-1')">&larr; Back to Week 1</button>
+</div>
+
+<div class="page" id="day-1-2">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-1')">Week 1</span><span class="crumb-sep">/</span><span class="crumb-current">Tue, May 26</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 1 &middot; Tue, May 26</div><h2 class="dp-title">Onboarding and Introduction</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-purple" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">8:00 AM - 9:00 AM</span><span class="ev-who">Drs. Michael Cary and Yujuan Gao</span></div><div class="ev-value">ONBOARDING: 
+    -Check that the participation agrement was signed, 
+    -CITI training was complete.
+    -Eduroam access, 
+    -Network Access in building,
+    -PRE-SURVEY is complete,
+    -Sign contract for pics,
+    -Pre-Survey
+    -Q&amp;A</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">9:00 AM - 10:00 AM</span><span class="ev-who">Everyone</span></div><div class="ev-value">COFFEE &amp; DONUTS, Welcome Interns - introduce everyone
+    -Normand take photos</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">10:00 AM - 12:00 PM</span><span class="ev-who">Drs. Le Wang, Yujuan Gao, and Michael Cary</span></div><div class="ev-value">Faculty Present Projects to the Interns</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 3:00 PM</span><span class="ev-who">Faculty Advisors and Grad Fellows</span></div><div class="ev-value">Interns meet with project teams, go over expectations and workflow</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.25s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">3:00 PM - 5:00 PM</span><span class="ev-who">Dr. Michael Cary, Dr. Yujuan Gao, and Grad Fellows</span></div><div class="ev-value">Interns work on setting up software and team communication
+   - TEAMS, GIT, Downloading Software 
+   - R, R Studio, R markdown, Data Camp
+   - Look for GIT Ruben Bramasco Video</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-1')">&larr; Back to Week 1</button>
+</div>
+
+<div class="page" id="day-1-4">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-1')">Week 1</span><span class="crumb-sep">/</span><span class="crumb-current">Thu, May 28</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 1 &middot; Thu, May 28</div><h2 class="dp-title">Introduction to Research</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-blue" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">8:00 AM - 9:00 AM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Office hour</div></div></div>
+  <div class="ev-card ev-purple" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">9:00 AM - 10:20 AM</span><span class="ev-who">Dr. Le Wang</span></div><div class="ev-value">Workshop - Introduction to Research</div></div></div>
+  <div class="ev-card ev-purple" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">10:30 AM - 12:00 PM</span><span class="ev-who">Dr. Eric Kaufman</span></div><div class="ev-value">Workshop - How to work with stakeholders</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 3:00 PM</span></div><div class="ev-value">Interns work on project - discuss research question for the project</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.25s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">3:00 PM - 5:00 PM</span></div><div class="ev-value">Interns work on project - discuss questions to ask stakeholders</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-1')">&larr; Back to Week 1</button>
+</div>
+
+<div class="page" id="day-1-5">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-1')">Week 1</span><span class="crumb-sep">/</span><span class="crumb-current">Fri, May 29</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 1 &middot; Fri, May 29</div><h2 class="dp-title">Introduction to Literature Review and Meeting Stakeholders</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-purple" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1.5 hour</span><span class="ev-who">Dr. Yujuan Gao</span></div><div class="ev-value">Workshop - How to conduct literature review</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">To be scheduled</span><span class="ev-who">Project Team and Stakeholder</span></div><div class="ev-value">Interns meet with Stakeholder - potential slot 1</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Interns work on project - search, read, and summarize literature</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">—</span></div><div class="ev-value">A more refined research question based on literature review</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-1')">&larr; Back to Week 1</button>
+</div>
+
+<div class="page" id="week-2">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb-current">Week 2</span></div>
+  <div class="wp-header">
+    <div class="wp-label">Week 2</div>
+    <h2 class="wp-title">Basic Programming skills</h2>
+    <span class="wp-milestone">&#127937; Stakeholer Meetings</span>
+  </div>
+  <div class="divider"></div>
+  <div class="section-title">Days</div>
+  <div class="section-hint">Click a day to see full schedule</div>
+  <div class="day-grid">
+    <div class="dc" onclick="go('day-2-0')">
+      <div class="dc-head"><div class="dc-day">Mon, Jun 1</div><div class="dc-count">4 events</div></div>
+      <div class="dc-preview">Office hour &middot; Workshop - R Basics &amp; Training Secti &middot; Interns work on DATACAMP and practice R </div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc" onclick="go('day-2-1')">
+      <div class="dc-head"><div class="dc-day">Tue, Jun 2</div><div class="dc-count">3 events</div></div>
+      <div class="dc-preview">Office hour &middot; Workshop - R Basics &amp; Training Secti &middot; Interns work on DATACAMP and practice R </div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc" onclick="go('day-2-2')">
+      <div class="dc-head"><div class="dc-day">Wed, Jun 3</div><div class="dc-count">4 events</div></div>
+      <div class="dc-preview">Office hour &middot; Workshop - GIT Basics &amp; Training &middot; Interns work on DATACAMP and practice Gi</div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc" onclick="go('day-2-3')">
+      <div class="dc-head"><div class="dc-day">Thu, Jun 4</div><div class="dc-count">4 events</div></div>
+      <div class="dc-preview">Office hour &middot; Workshop - R Shiny and R Markdown Basics &middot; Interns work on DATACAMP and practice R </div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc" onclick="go('day-2-4')">
+      <div class="dc-head"><div class="dc-day">Fri, Jun 5</div><div class="dc-count">9 events</div></div>
+      <div class="dc-preview">Office hour &middot; Workshop - Coding Organization &amp; Sta &middot; Workshop - Organizing and Documenting Da</div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+  </div>
+  <div class="wp-nav"><button class="nav-btn" onclick="go('week-1')">&larr; Week 1</button><button class="nav-btn" onclick="go('week-3')">Week 3 &rarr;</button></div>
+</div>
+
+<div class="page" id="day-2-0">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-2')">Week 2</span><span class="crumb-sep">/</span><span class="crumb-current">Mon, Jun 1</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 2 &middot; Mon, Jun 1</div><h2 class="dp-title">R Basics &amp; Training</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-blue" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">8:00 AM - 9:00 AM</span><span class="ev-who">Drs. Michael Cary and Yujuan Gao</span></div><div class="ev-value">Office hour</div></div></div>
+  <div class="ev-card ev-purple" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">9:00 AM - 12:00 PM</span><span class="ev-who">Nathaniel/Jesse</span></div><div class="ev-value">Workshop - R Basics &amp; Training Section 1</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on DATACAMP and practice R with Project Data</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Faculty and Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Read literature and refine research question</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-2')">&larr; Back to Week 2</button>
+</div>
+
+<div class="page" id="day-2-1">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-2')">Week 2</span><span class="crumb-sep">/</span><span class="crumb-current">Tue, Jun 2</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 2 &middot; Tue, Jun 2</div><h2 class="dp-title">R Basics &amp; Training</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-blue" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">8:00 AM - 9:00 AM</span><span class="ev-who">Drs. Michael Cary and Yujuan Gao</span></div><div class="ev-value">Office hour</div></div></div>
+  <div class="ev-card ev-purple" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">9:00 AM - 12:00 PM</span><span class="ev-who">Nathaniel/Jesse</span></div><div class="ev-value">Workshop - R Basics &amp; Training Section 2</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on DATACAMP and practice R with Project Data</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-2')">&larr; Back to Week 2</button>
+</div>
+
+<div class="page" id="day-2-2">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-2')">Week 2</span><span class="crumb-sep">/</span><span class="crumb-current">Wed, Jun 3</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 2 &middot; Wed, Jun 3</div><h2 class="dp-title">GIT Basics &amp; Training</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-blue" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">8:00 AM - 9:00 AM</span><span class="ev-who">Drs. Michael Cary and Yujuan Gao</span></div><div class="ev-value">Office hour</div></div></div>
+  <div class="ev-card ev-purple" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">9:00 AM - 12:00 PM</span><span class="ev-who">Nathaniel/Jesse</span></div><div class="ev-value">Workshop - GIT Basics &amp; Training</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 3:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on DATACAMP and practice Git and Github: Branching, Pull Requests</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">3:00 PM - 5:00 PM</span><span class="ev-who">Faculty and Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Read literature and refine research question</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-2')">&larr; Back to Week 2</button>
+</div>
+
+<div class="page" id="day-2-3">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-2')">Week 2</span><span class="crumb-sep">/</span><span class="crumb-current">Thu, Jun 4</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 2 &middot; Thu, Jun 4</div><h2 class="dp-title">Introduction to Research</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-blue" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">8:00 AM - 9:00 AM</span><span class="ev-who">Drs. Michael Cary and Yujuan Gao</span></div><div class="ev-value">Office hour</div></div></div>
+  <div class="ev-card ev-purple" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">9:00 AM - 12:00 PM</span><span class="ev-who">Nathaniel/Jesse</span></div><div class="ev-value">Workshop - R Shiny and R Markdown Basics &amp; Training</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 3:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on DATACAMP and practice R Shiny and R Markdown</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">3:00 PM - 5:00 PM</span><span class="ev-who">Faculty and Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Read literature and refine research question</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-2')">&larr; Back to Week 2</button>
+</div>
+
+<div class="page" id="day-2-4">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-2')">Week 2</span><span class="crumb-sep">/</span><span class="crumb-current">Fri, Jun 5</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 2 &middot; Fri, Jun 5</div><h2 class="dp-title">Introduction to Literature Review and Meeting Stakeholders</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-blue" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">8:00 AM - 9:00 AM</span><span class="ev-who">Drs. Michael Cary and Yujuan Gao</span></div><div class="ev-value">Office hour</div></div></div>
+  <div class="ev-card ev-purple" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1 hr</span><span class="ev-who">Xiaoyi Zhao</span></div><div class="ev-value">Workshop - Coding Organization &amp; Standard Template</div></div></div>
+  <div class="ev-card ev-purple" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1/2 to 1 hr</span><span class="ev-who">Pragati Dahal</span></div><div class="ev-value">Workshop - Organizing and Documenting Data Availability</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">11:00 AM - 12:00 PM</span><span class="ev-who">Project Team and Stakeholder</span></div><div class="ev-value">Interns meet with Stakeholder - potential slot 2</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.25s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 3:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Implement organization and documentation template</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.30s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">3:00 PM - 4:00 PM</span><span class="ev-who">Project Team and Stakeholder</span></div><div class="ev-value">Interns meet with Stakeholder - potential slot 3</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.35s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, make sure to follow Template</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.40s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">—</span></div><div class="ev-value">A completed draft of literature review</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.45s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">—</span></div><div class="ev-value">A simple version of R Shiny app product</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-2')">&larr; Back to Week 2</button>
+</div>
+
+<div class="page" id="week-3">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb-current">Week 3</span></div>
+  <div class="wp-header">
+    <div class="wp-label">Week 3</div>
+    <h2 class="wp-title">Data skills - multimodality</h2>
+    
+  </div>
+  <div class="divider"></div>
+  <div class="section-title">Days</div>
+  <div class="section-hint">Click a day to see full schedule</div>
+  <div class="day-grid">
+    <div class="dc" onclick="go('day-3-0')">
+      <div class="dc-head"><div class="dc-day">Mon, Jun 8</div><div class="dc-count">4 events</div></div>
+      <div class="dc-preview">Interns meet with Grad Fellow to Assign  &middot; AI &amp; Ethics &middot; Interns work on Project - Work on data a</div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc" onclick="go('day-3-1')">
+      <div class="dc-head"><div class="dc-day">Tue, Jun 9</div><div class="dc-count">4 events</div></div>
+      <div class="dc-preview">Workshop - Structured and Large Dataset &middot; Interns work on Project - Work on data a &middot; Interns work on Project - Work on data a</div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc" onclick="go('day-3-2')">
+      <div class="dc-head"><div class="dc-day">Wed, Jun 10</div><div class="dc-count">3 events</div></div>
+      <div class="dc-preview">Workshop - Transportation and Health Acc &middot; Interns work on Project - Work on data a &middot; Push progress to GIT, Make sure to follo</div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc" onclick="go('day-3-3')">
+      <div class="dc-head"><div class="dc-day">Thu, Jun 11</div><div class="dc-count">3 events</div></div>
+      <div class="dc-preview">Workshop - Remote Sensing Data &middot; Interns work on Project - Work on data a &middot; Push progress to GIT, Make sure to follo</div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+    <div class="dc" onclick="go('day-3-4')">
+      <div class="dc-head"><div class="dc-day">Fri, Jun 12</div><div class="dc-count">3 events</div></div>
+      <div class="dc-preview">Progress Report &middot; Interns work on Project - Work on data a &middot; Push progress to GIT, Make sure to follo</div>
+      <div class="dc-open">Open &rarr;</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-title">Week Deliverables</div>
+  <div class="ev-list" style="margin-top:0.8rem">
+<div class="ev-card ev-green"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">—</span></div><div class="ev-value">A more complicated R shiny app product</div></div></div>
+  </div>
+  <div class="wp-nav"><button class="nav-btn" onclick="go('week-2')">&larr; Week 2</button><button class="nav-btn" onclick="go('week-4')">Week 4 &rarr;</button></div>
+</div>
+
+<div class="page" id="day-3-0">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-3')">Week 3</span><span class="crumb-sep">/</span><span class="crumb-current">Mon, Jun 8</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 3 &middot; Mon, Jun 8</div><h2 class="dp-title">AI &amp; Ethics Workship and Work on data</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-blue" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">8:30 AM - 9:30 AM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Interns meet with Grad Fellow to Assign Weekly Tasks &amp; Check In with faculty</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">10:00 AM - 12:00 PM</span><span class="ev-who">Drs. Rockwell Clancy and Elena Serrano</span></div><div class="ev-value">AI &amp; Ethics</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, Make sure to follow Template, Reflection</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-3')">&larr; Back to Week 3</button>
+</div>
+
+<div class="page" id="day-3-1">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-3')">Week 3</span><span class="crumb-sep">/</span><span class="crumb-current">Tue, Jun 9</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 3 &middot; Tue, Jun 9</div><h2 class="dp-title">Structured and Large Dataset and Work on project</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-purple" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">2 hr</span><span class="ev-who">Xiaoyi Zhao</span></div><div class="ev-value">Workshop - Structured and Large Dataset</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">—</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.20s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, Make sure to follow Template, Reflection</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-3')">&larr; Back to Week 3</button>
+</div>
+
+<div class="page" id="day-3-2">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-3')">Week 3</span><span class="crumb-sep">/</span><span class="crumb-current">Wed, Jun 10</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 3 &middot; Wed, Jun 10</div><h2 class="dp-title">Transportation and Health Access Data</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-purple" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">2 hr</span><span class="ev-who">Junghwan?</span></div><div class="ev-value">Workshop - Transportation and Health Access Data</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, Make sure to follow Template, Reflection</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-3')">&larr; Back to Week 3</button>
+</div>
+
+<div class="page" id="day-3-3">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-3')">Week 3</span><span class="crumb-sep">/</span><span class="crumb-current">Thu, Jun 11</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 3 &middot; Thu, Jun 11</div><h2 class="dp-title">Remote Sensing Data</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-purple" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">2 hr</span><span class="ev-who">Shao Yang&#x27;s Student?</span></div><div class="ev-value">Workshop - Remote Sensing Data</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, Make sure to follow Template, Reflection</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-3')">&larr; Back to Week 3</button>
+</div>
+
+<div class="page" id="day-3-4">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb" onclick="go('week-3')">Week 3</span><span class="crumb-sep">/</span><span class="crumb-current">Fri, Jun 12</span></div>
+  <div class="dp-header"><div class="dp-meta">Week 3 &middot; Fri, Jun 12</div><h2 class="dp-title">Text data (optional)</h2></div>
+  <div class="divider"></div>
+  <div class="ev-list">
+  <div class="ev-card ev-blue" style="animation-delay:0.05s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">10:00 AM - 12:00 PM</span><span class="ev-who">All Teams + Faculty</span></div><div class="ev-value">Progress Report</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.10s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">1:00 PM - 4:00 PM</span><span class="ev-who">Grad Fellows available for questions</span></div><div class="ev-value">Interns work on Project - Work on data and develop R-Shiny</div></div></div>
+  <div class="ev-card ev-blue" style="animation-delay:0.15s"><div class="ev-bar"></div><div class="ev-content"><div class="ev-meta"><span class="ev-time">4:00 PM - 5:00 PM</span><span class="ev-who">Grad Fellows</span></div><div class="ev-value">Push progress to GIT, Make sure to follow Template, Reflection</div></div></div>
+  </div>
+  <button class="back-btn" onclick="go('week-3')">&larr; Back to Week 3</button>
+</div>
+
+<div class="page" id="week-4">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb-current">Week 4</span></div>
+  <div class="wp-header">
+    <div class="wp-label">Week 4</div>
+    <h2 class="wp-title">Data skills - multimodlity</h2>
+    
+  </div>
+  <div class="divider"></div>
+  <div class="section-title">Topics</div>
+  <div class="topic-list" style="margin-top:0.8rem">
+    <div class="tl-item">
+      <div class="tl-title">Advanced Data Visualizatio</div>
+      <div class="tl-meta"><span class="tl-inst">Yuanyuan</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">Explorotary analysis</div>
+      <div class="tl-meta"><span class="tl-inst">Yuanyuan</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">Advanced R Shiny</div>
+      <div class="tl-meta"><span class="tl-inst">Yuanyuan</span></div>
+    </div>
+  </div>
+  <div class="wp-nav"><button class="nav-btn" onclick="go('week-3')">&larr; Week 3</button><button class="nav-btn" onclick="go('week-5')">Week 5 &rarr;</button></div>
+</div>
+
+<div class="page" id="week-5">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb-current">Week 5</span></div>
+  <div class="wp-header">
+    <div class="wp-label">Week 5</div>
+    <h2 class="wp-title">Data Exploratory skills &amp; Modeling skills</h2>
+    
+  </div>
+  <div class="divider"></div>
+  <div class="section-title">Topics</div>
+  <div class="topic-list" style="margin-top:0.8rem">
+    <div class="tl-item">
+      <div class="tl-title">Introduction to Statistics</div>
+      <div class="tl-meta"><span class="tl-inst">Yujuan</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">Reduction technique -- index building</div>
+      <div class="tl-meta"><span class="tl-inst">Huaiyang, Yang Cheng</span><span class="tl-time">9 am - 11: 30 am</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">Causal Inference (Lecture 1 &amp;  2)</div>
+      <div class="tl-meta"><span class="tl-inst">Yujuan (Causal Inference Philosophy, DID , Synthetic Control , RCT)</span><span class="tl-time">9 am - 11 am in two days</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title"></div>
+      <div class="tl-meta"><span class="tl-inst">Pragati ( IV , RDD)</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title"></div>
+      <div class="tl-meta"><span class="tl-inst">Potentially : Propensity Score etc.</span></div>
+    </div>
+  </div>
+  <div class="wp-nav"><button class="nav-btn" onclick="go('week-4')">&larr; Week 4</button><button class="nav-btn" onclick="go('week-6')">Week 6 &rarr;</button></div>
+</div>
+
+<div class="page" id="week-6">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb-current">Week 6</span></div>
+  <div class="wp-header">
+    <div class="wp-label">Week 6</div>
+    <h2 class="wp-title">Advanced skills and topics</h2>
+    <span class="wp-milestone">&#127937; Midterm Check In with Stakeholders</span>
+  </div>
+  <div class="divider"></div>
+  <div class="section-title">Topics</div>
+  <div class="topic-list" style="margin-top:0.8rem">
+    <div class="tl-item">
+      <div class="tl-title">AI - Advanced Computing at VT</div>
+      <div class="tl-meta"><span class="tl-inst">https://arc.vt.edu/services/training.html</span><span class="tl-note">Dr. C. Wang will schedule the guest speaker, &quot;visualizing this&quot; sounds interesting</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">LLM</div>
+      <div class="tl-meta"><span class="tl-note">( Potentially guest speaker in Data Science Series )</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">LLM + R – ellmer, querychat</div>
+      <div class="tl-meta"><span class="tl-note">( Potentially guest speaker in Data Science Series )</span></div>
+    </div>
+  </div>
+  <div class="wp-nav"><button class="nav-btn" onclick="go('week-5')">&larr; Week 5</button><button class="nav-btn" onclick="go('week-7')">Week 7 &rarr;</button></div>
+</div>
+
+<div class="page" id="week-7">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb-current">Week 7</span></div>
+  <div class="wp-header">
+    <div class="wp-label">Week 7</div>
+    <h2 class="wp-title">Analysis</h2>
+    <span class="wp-milestone">&#127937; Begin Shiny App and start Kohl Insights</span>
+  </div>
+  <div class="divider"></div>
+  <div class="section-title">Topics</div>
+  <div class="topic-list" style="margin-top:0.8rem">
+    <div class="tl-item">
+      <div class="tl-title">Poster + Latex</div>
+      <div class="tl-meta"><span class="tl-inst">Yujuan</span><span class="tl-time">Timing : 9 - 11</span></div>
+    </div>
+  </div>
+  <div class="wp-nav"><button class="nav-btn" onclick="go('week-6')">&larr; Week 6</button><button class="nav-btn" onclick="go('week-8')">Week 8 &rarr;</button></div>
+</div>
+
+<div class="page" id="week-8">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb-current">Week 8</span></div>
+  <div class="wp-header">
+    <div class="wp-label">Week 8</div>
+    <h2 class="wp-title">Analysis (finalize results, make progress on Kohl Insights)</h2>
+    <span class="wp-milestone">&#127937; Deploy Version 1 of Shiny App</span>
+  </div>
+  <div class="divider"></div>
+  <div class="wp-nav"><button class="nav-btn" onclick="go('week-7')">&larr; Week 7</button><button class="nav-btn" onclick="go('week-9')">Week 9 &rarr;</button></div>
+</div>
+
+<div class="page" id="week-9">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb-current">Week 9</span></div>
+  <div class="wp-header">
+    <div class="wp-label">Week 9</div>
+    <h2 class="wp-title">Finalize R shiny + poster, make progress on Kohl Insights</h2>
+    <span class="wp-milestone">&#127937; Abstract submission (due July 20 at 8:00 a.m.)</span>
+  </div>
+  <div class="divider"></div>
+  <div class="wp-nav"><button class="nav-btn" onclick="go('week-8')">&larr; Week 8</button><button class="nav-btn" onclick="go('week-10')">Week 10 &rarr;</button></div>
+</div>
+
+<div class="page" id="week-10">
+  <div class="crumbs"><span class="crumb" onclick="go('toc')">Contents</span><span class="crumb-sep">/</span><span class="crumb-current">Week 10</span></div>
+  <div class="wp-header">
+    <div class="wp-label">Week 10</div>
+    <h2 class="wp-title">Finalize Github, prepare for final presentation at Summer VT Undergraduate Research Symposium, finalize Kohl Insights</h2>
+    <span class="wp-milestone">&#127937; Poster, Kohl Insights, Shiny APP</span>
+  </div>
+  <div class="divider"></div>
+  <div class="wp-nav"><button class="nav-btn" onclick="go('week-9')">&larr; Week 9</button><button class="nav-btn" onclick="go('toc')">Contents &#8617;</button></div>
+</div>
+
+<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech</div>
+<script>
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const t=document.getElementById(id);
+  if(t){requestAnimationFrame(()=>{t.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})})}
+}
+document.addEventListener('DOMContentLoaded',()=>go('toc'));
+</script>
+</div>
+</body>
+</html>
