@@ -226,7 +226,7 @@ def parse_week_sheet(ws):
                 continue
 
             # Week-level deliverable rows
-            if col0.lower().startswith("deliverable"):
+            if "deliverable" in col0.lower():
                 in_deliverables = True
                 if col1:
                     week_deliverables.append(col1)
