@@ -48,7 +48,7 @@ SUBTITLE     = "Data Science for the Public Good · Virginia Tech"
 DATE_RANGE   = "May – August 2026"
 
 # Keywords that mark a day as a holiday / no-work day
-HOLIDAY_KEYWORDS = ["holiday", "no activities", "full day event",
+HOLIDAY_KEYWORDS = ["holiday", "no activities",
                     "memorial day", "independence day", "labor day", "thanksgiving"]
 
 # Keywords that hint a row is a Workshop (→ purple card)
