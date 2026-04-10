@@ -624,14 +624,14 @@ def gen_html(master_weeks, week_data, generated_by=None):
 
 def main():
     args = sys.argv[1:]
-    xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
-    html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
-    # Optional: --by "Name"
     generated_by = None
     if "--by" in args:
         idx = args.index("--by")
         if idx + 1 < len(args):
             generated_by = args[idx + 1]
+        args = [a for i,a in enumerate(args) if a != "--by" and (i == 0 or args[i-1] != "--by")]
+    xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
+    html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
 
     if not xlsx_path.exists():
         print(f"ERROR: Cannot find '{xlsx_path}'")
