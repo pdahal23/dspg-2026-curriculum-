@@ -416,7 +416,7 @@ function injectDayNav(){
 document.addEventListener('DOMContentLoaded',()=>{injectDayNav();go('toc');});
 """
 
-def gen_html(master_weeks, week_data):
+def gen_html(master_weeks, week_data, generated_by=None):
     today = datetime.date.today().strftime("%B %d, %Y")
     now_time = datetime.datetime.now().strftime("%I:%M %p")
 
@@ -611,7 +611,8 @@ def gen_html(master_weeks, week_data):
 
     js = JS_TEMPLATE.replace("__DAY_MAP__", json.dumps(day_entries))
 
-    out.append(f'<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech &middot; Generated {today}, {now_time}</div>\n')
+    by_str = f" &middot; {h(generated_by)}" if generated_by else ""
+    out.append(f'<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech &middot; Generated {today}, {now_time}{by_str}</div>\n')
     out.append(f'<script>{js}</script>\n')
     out.append('</div>\n</body>\n</html>\n')
 
@@ -625,6 +626,12 @@ def main():
     args = sys.argv[1:]
     xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
     html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
+    # Optional: --by "Name"
+    generated_by = None
+    if "--by" in args:
+        idx = args.index("--by")
+        if idx + 1 < len(args):
+            generated_by = args[idx + 1]
 
     if not xlsx_path.exists():
         print(f"ERROR: Cannot find '{xlsx_path}'")
@@ -662,7 +669,7 @@ def main():
         print(f"  Week {mw['num']}: {n_days} days, {n_topics} topics, {len(parsed['week_deliverables'])} deliverables")
         week_data.append(parsed)
 
-    html = gen_html(master_weeks, week_data)
+    html = gen_html(master_weeks, week_data, generated_by=generated_by)
 
     html_path.write_text(html, encoding="utf-8")
     print(f"\nGenerated: {html_path}  ({len(html):,} bytes)")
