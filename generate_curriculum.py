@@ -124,18 +124,21 @@ def fmt_time(val):
         return f"{h12}:{minute:02d} {ampm}"
     return str(val).strip()
 
-def ev_card_html(activity, time_val, who, color=None, delay=0):
+def ev_card_html(activity, time_val, who, location="", color=None, delay=0):
     """Render a single event card."""
-    act_text = h(activity)
+    act_text  = h(activity)
     time_text = h(fmt_time(time_val)) if time_val else ""
     who_text  = h(who) if who else ""
+    loc_text  = h(location) if location else ""
     clr = color or card_color(activity, who)
 
     meta_html = ""
-    if time_text or who_text:
+    if time_text or who_text or loc_text:
         meta_html = '<div class="ev-meta">'
         if time_text:
             meta_html += f'<span class="ev-time">{time_text}</span>'
+        if loc_text:
+            meta_html += f'<span class="ev-loc">&#128205; {loc_text}</span>'
         if who_text:
             meta_html += f'<span class="ev-who">{who_text}</span>'
         meta_html += "</div>"
@@ -219,6 +222,7 @@ def parse_week_sheet(ws):
             col0 = str(row[0]).strip() if row[0] is not None else ""
             col1 = str(row[1]).strip() if row[1] is not None else ""
             col2 = fmt_time(row[2]) if row[2] is not None else ""
+            col3 = str(row[3]).strip() if len(row) > 3 and row[3] is not None else ""
             col4 = str(row[4]).strip() if len(row) > 4 and row[4] is not None else ""
 
             # Skip header row
@@ -258,6 +262,7 @@ def parse_week_sheet(ws):
                     current_day["events"].append({
                         "activity": col1,
                         "time":     col2,
+                        "location": col3,
                         "who":      col4,
                         "color":    clr,
                     })
@@ -365,6 +370,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 .ev-meta{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.35rem}
 .ev-time{font-size:0.72rem;font-weight:500;color:var(--text-dim);letter-spacing:0.02em}
 .ev-who{font-size:0.66rem;font-weight:500;padding:0.1rem 0.5rem;border-radius:20px;white-space:nowrap}
+.ev-loc{font-size:0.66rem;color:var(--text-muted);white-space:nowrap}
 .ev-blue .ev-who{background:rgba(37,99,235,0.1);color:var(--blue)}
 .ev-green .ev-who{background:rgba(22,163,74,0.1);color:var(--green)}
 .ev-purple .ev-who{background:rgba(124,58,237,0.12);color:var(--purple)}
@@ -583,7 +589,7 @@ def gen_html(master_weeks, week_data, generated_by=None):
                 out.append('  <div class="ev-list">\n')
                 for ei, ev in enumerate(day["events"]):
                     out.append("  " + ev_card_html(ev["activity"], ev["time"], ev["who"],
-                                                   color=ev["color"], delay=(ei+1)*0.05))
+                                                   location=ev.get("location",""), color=ev["color"], delay=(ei+1)*0.05))
                 out.append('  </div>\n')
             else:
                 out.append('  <div class="ev-list"><div class="no-events">No events recorded for this day.</div></div>\n')
@@ -624,14 +630,14 @@ def gen_html(master_weeks, week_data, generated_by=None):
 
 def main():
     args = sys.argv[1:]
+    xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
+    html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
+    # Optional: --by "Name"
     generated_by = None
     if "--by" in args:
         idx = args.index("--by")
         if idx + 1 < len(args):
             generated_by = args[idx + 1]
-        args = [a for i,a in enumerate(args) if a != "--by" and (i == 0 or args[i-1] != "--by")]
-    xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
-    html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
 
     if not xlsx_path.exists():
         print(f"ERROR: Cannot find '{xlsx_path}'")
