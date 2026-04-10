@@ -612,7 +612,7 @@ def gen_html(master_weeks, week_data, generated_by=None):
     js = JS_TEMPLATE.replace("__DAY_MAP__", json.dumps(day_entries))
 
     by_str = f" &middot; {h(generated_by)}" if generated_by else ""
-    out.append(f'<div class="footer">Auto-generated from curriculum xlsx &middot; DSPG 2026 &middot; Virginia Tech &middot; Generated {today}, {now_time}{by_str}</div>\n')
+    out.append(f'<div class="footer">DSPG 2026 &middot; Virginia Tech &middot; Generated {today}, {now_time}{by_str}</div>\n')
     out.append(f'<script>{js}</script>\n')
     out.append('</div>\n</body>\n</html>\n')
 
@@ -624,14 +624,15 @@ def gen_html(master_weeks, week_data, generated_by=None):
 
 def main():
     args = sys.argv[1:]
+    xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
+    html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
+    # Optional: --by "Name"
     generated_by = None
     if "--by" in args:
         idx = args.index("--by")
         if idx + 1 < len(args):
             generated_by = args[idx + 1]
-        args = [a for i,a in enumerate(args) if a != "--by" and (i == 0 or args[i-1] != "--by")]
-    xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
-    html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
+
     if not xlsx_path.exists():
         print(f"ERROR: Cannot find '{xlsx_path}'")
         print(f"Usage: python generate_curriculum.py [input.xlsx] [output.html]")
