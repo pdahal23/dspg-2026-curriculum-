@@ -303,7 +303,7 @@ CSS = """
   --bg:#fff;--page:#f8f9fa;--page-edge:#edf0f3;--border:#e2e5e9;--border-light:#ced4da;
   --text:#1a1a2e;--text-dim:#495057;--text-muted:#868e96;
   --accent:#2b5797;--accent-glow:rgba(43,87,151,0.06);
-  --blue:#2563eb;--blue-bg:rgba(37,99,235,0.05);--blue-border:rgba(37,99,235,0.15);
+  --blue:#e5751f;--blue-bg:rgba(229,117,31,0.06);--blue-border:rgba(229,117,31,0.2);
   --green:#16a34a;--green-bg:rgba(22,163,74,0.05);--green-border:rgba(22,163,74,0.15);
   --purple:#7c3aed;--purple-bg:rgba(124,58,237,0.05);--purple-border:rgba(124,58,237,0.15);
   --deadline:#dc2626;--holiday:#d97706;--holiday-bg:rgba(217,119,6,0.06)
@@ -311,33 +311,32 @@ CSS = """
 body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 .book{max-width:920px;margin:0 auto;padding:3rem 2rem 4rem}
 .crumbs{display:flex;align-items:center;gap:0.4rem;margin-bottom:1.8rem;font-size:0.62rem;flex-wrap:wrap}
-.crumb{color:var(--accent);cursor:pointer;transition:color 0.2s}.crumb:hover{color:var(--text)}
+.crumb{color:#861f41;cursor:pointer;transition:color 0.2s}.crumb:hover{color:var(--text)}
 .crumb-sep{color:var(--text-muted)}.crumb-current{color:var(--text-dim)}
 .page{display:none;animation:pageIn 0.4s ease both}.page.active{display:block}
 @keyframes pageIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
-.cover{text-align:center;padding:3rem 2rem 3rem;margin-bottom:2rem;background:linear-gradient(135deg,#1a1f3c 0%,#2d1a2e 50%,#4a1020 100%);border-radius:12px;position:relative;overflow:hidden}
-.cover::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
-.cover-orn{font-size:1.2rem;color:rgba(255,255,255,0.3);letter-spacing:0.6em;margin-bottom:1.2rem}
-.cover h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2.6rem;letter-spacing:-0.01em;color:#ffffff;line-height:1.15;margin-bottom:0.6rem}
-.cover-rule{width:4rem;height:2px;background:linear-gradient(90deg,#862633,#f5a623);margin:0.8rem auto}
-.cover .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,0.65);margin-bottom:0.8rem}
-.cover .dates{font-size:0.62rem;color:rgba(255,255,255,0.4);letter-spacing:0.2em;text-transform:uppercase}
+.cover{text-align:center;padding:2.5rem 0 2.5rem;border-bottom:3px solid #861f41;margin-bottom:2rem}
+.cover-orn{display:none}
+.cover h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2.4rem;letter-spacing:-0.02em;color:var(--text);line-height:1.15;margin-bottom:0.5rem}
+.cover-rule{width:4rem;height:2px;background:#861f41;margin:0.8rem auto}
+.cover .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--text-dim);margin-bottom:1rem}
+.cover .dates{font-size:0.65rem;color:var(--text-muted);letter-spacing:0.15em;text-transform:uppercase}
 .toc-stats{display:flex;justify-content:center;gap:2.5rem;margin-bottom:2rem;flex-wrap:wrap}
 .ts{text-align:center}.ts-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.8rem;color:var(--accent)}
 .ts-lbl{font-size:0.58rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em}
 .toc-heading{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:0.85rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.2em;margin-bottom:1.2rem;text-align:center}
-.chapter{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.4rem;margin-bottom:0.5rem;background:var(--page);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.25s ease;animation:fadeIn 0.5s ease both;position:relative;overflow:hidden}
-.chapter::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);transition:width 0.25s}
-.chapter:hover{border-color:var(--accent);background:var(--page-edge);transform:translateX(4px);box-shadow:0 2px 12px rgba(0,0,0,0.06)}.chapter:hover::before{width:3px}.chapter:hover .ch-arrow{opacity:1;transform:translateX(0)}
+.chapter{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.4rem;margin-bottom:0.5rem;background:var(--page);border:1px solid rgba(134,31,65,0.2);border-left:3px solid #861f41;border-radius:8px;cursor:pointer;transition:all 0.25s ease;animation:fadeIn 0.5s ease both;position:relative;overflow:hidden}
+.chapter::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:#861f41;transition:width 0.25s}
+.chapter:hover{border-color:#861f41;background:rgba(134,31,65,0.03);transform:translateX(4px);box-shadow:0 2px 12px rgba(134,31,65,0.08)}.chapter:hover::before{width:3px}.chapter:hover .ch-arrow{opacity:1;transform:translateX(0)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.ch-left{flex:1}.ch-num{font-size:0.58rem;display:inline-block;background:var(--accent-glow);border:1px solid var(--accent-border);color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.35rem;font-weight:600;padding:0.1rem 0.5rem;border-radius:6px}
+.ch-left{flex:1}.ch-num{font-size:0.58rem;display:inline-block;background:rgba(134,31,65,0.07);border:1px solid rgba(134,31,65,0.25);color:#861f41;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.35rem;font-weight:600;padding:0.1rem 0.5rem;border-radius:6px}
 .ch-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.15rem;color:var(--text);margin-bottom:0.3rem;line-height:1.3}
 .ch-meta{font-size:0.58rem;color:var(--text-muted);display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap}
 .ch-deliv{font-size:0.52rem;padding:0.1rem 0.45rem;border-radius:8px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
 .ch-milestone{font-size:0.52rem;padding:0.1rem 0.45rem;border-radius:8px;background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
 .ch-right{display:flex;align-items:center;margin-left:1rem}
-.ch-arrow{font-size:1.1rem;color:var(--accent);opacity:0;transform:translateX(-6px);transition:all 0.25s}
-.wp-header{margin-bottom:1.5rem}.wp-label{font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.2em;margin-bottom:0.4rem;font-weight:500}
+.ch-arrow{font-size:1.1rem;color:#861f41;opacity:0;transform:translateX(-6px);transition:all 0.25s}
+.wp-header{margin-bottom:1.5rem}.wp-label{font-size:0.65rem;color:#861f41;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:0.4rem;font-weight:500}
 .wp-title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2rem;color:var(--text);line-height:1.2;margin-bottom:0.5rem}
 .wp-milestone{display:inline-block;font-size:0.62rem;padding:0.3rem 0.8rem;border-radius:6px;background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue);margin-bottom:0.5rem}
 .wp-deliv-badge{display:inline-block;font-size:0.62rem;padding:0.3rem 0.8rem;border-radius:6px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);margin-bottom:0.5rem;margin-left:0.4rem}
@@ -453,14 +452,14 @@ def gen_html(master_weeks, week_data, generated_by=None):
     # ------------------------------------------------------------------ TOC
     out.append('<div class="page" id="toc">\n')
     out.append(f"""  <div class="cover">
-    <div class="cover-orn">&loz; &loz; &loz;</div>
+    <div class="cover-rule"></div>
     <h1>{TITLE}<br>Summer 2026</h1>
     <div class="cover-rule"></div>
     <div class="sub"><a href="https://aaec.vt.edu/academics/undergraduate/dspg.html" target="_blank" style="color:inherit;text-decoration:none">Data Science for the Public Good</a> &middot; <a href="https://www.vt.edu/" target="_blank" style="color:inherit;text-decoration:none">Virginia Tech</a></div>
     <div class="dates">{DATE_RANGE}</div>
   </div>
   <div class="toc-stats">
-    <div class="ts"><div class="ts-val" style="color:var(--accent)">{len(master_weeks)}</div><div class="ts-lbl" style="background:var(--accent-glow);border:1px solid var(--accent-border);color:var(--accent);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#128197; Weeks</div></div>
+    <div class="ts"><div class="ts-val" style="color:#861f41">{len(master_weeks)}</div><div class="ts-lbl" style="background:rgba(134,31,65,0.07);border:1px solid rgba(134,31,65,0.25);color:#861f41;padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#128197; Weeks</div></div>
     <div class="ts"><div class="ts-val" style="color:var(--blue)">{total_milestones}</div><div class="ts-lbl" style="background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#127937; Milestones</div></div>
     <div class="ts"><div class="ts-val" style="color:var(--green)">{sum(1 for m in master_weeks if m['deliverable'])}</div><div class="ts-lbl" style="background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#9989; Deliverables</div></div>
   </div>
@@ -633,12 +632,6 @@ def gen_html(master_weeks, week_data, generated_by=None):
 
 def main():
     args = sys.argv[1:]
-    generated_by = None
-    if "--by" in args:
-        idx = args.index("--by")
-        if idx + 1 < len(args):
-            generated_by = args[idx + 1]
-        args = [a for i,a in enumerate(args) if a != "--by" and (i == 0 or args[i-1] != "--by")]
     xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
     html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
     # Optional: --by "Name"
