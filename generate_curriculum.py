@@ -315,11 +315,13 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--tex
 .crumb-sep{color:var(--text-muted)}.crumb-current{color:var(--text-dim)}
 .page{display:none;animation:pageIn 0.4s ease both}.page.active{display:block}
 @keyframes pageIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
-.cover{text-align:center;padding:2rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
-.cover-orn{font-size:1.4rem;color:var(--accent);letter-spacing:0.5em;margin-bottom:1rem}
-.cover h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2.4rem;letter-spacing:-0.02em;color:var(--text);line-height:1.15;margin-bottom:0.5rem}
-.cover .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--text-dim);margin-bottom:1rem}
-.cover .dates{font-size:0.65rem;color:var(--text-muted);letter-spacing:0.15em;text-transform:uppercase}
+.cover{text-align:center;padding:3rem 2rem 3rem;margin-bottom:2rem;background:linear-gradient(135deg,#1a1f3c 0%,#2d1a2e 50%,#4a1020 100%);border-radius:12px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.cover-orn{font-size:1.2rem;color:rgba(255,255,255,0.3);letter-spacing:0.6em;margin-bottom:1.2rem}
+.cover h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2.6rem;letter-spacing:-0.01em;color:#ffffff;line-height:1.15;margin-bottom:0.6rem}
+.cover-rule{width:4rem;height:2px;background:linear-gradient(90deg,#862633,#f5a623);margin:0.8rem auto}
+.cover .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,0.65);margin-bottom:0.8rem}
+.cover .dates{font-size:0.62rem;color:rgba(255,255,255,0.4);letter-spacing:0.2em;text-transform:uppercase}
 .toc-stats{display:flex;justify-content:center;gap:2.5rem;margin-bottom:2rem;flex-wrap:wrap}
 .ts{text-align:center}.ts-val{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.8rem;color:var(--accent)}
 .ts-lbl{font-size:0.58rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em}
@@ -453,6 +455,7 @@ def gen_html(master_weeks, week_data, generated_by=None):
     out.append(f"""  <div class="cover">
     <div class="cover-orn">&loz; &loz; &loz;</div>
     <h1>{TITLE}<br>Summer 2026</h1>
+    <div class="cover-rule"></div>
     <div class="sub"><a href="https://aaec.vt.edu/academics/undergraduate/dspg.html" target="_blank" style="color:inherit;text-decoration:none">Data Science for the Public Good</a> &middot; <a href="https://www.vt.edu/" target="_blank" style="color:inherit;text-decoration:none">Virginia Tech</a></div>
     <div class="dates">{DATE_RANGE}</div>
   </div>
@@ -630,14 +633,15 @@ def gen_html(master_weeks, week_data, generated_by=None):
 
 def main():
     args = sys.argv[1:]
+    xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
+    html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
+    # Optional: --by "Name"
     generated_by = None
     if "--by" in args:
         idx = args.index("--by")
         if idx + 1 < len(args):
             generated_by = args[idx + 1]
-        args = [a for i,a in enumerate(args) if a != "--by" and (i == 0 or args[i-1] != "--by")]
-    xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
-    html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
+
     if not xlsx_path.exists():
         print(f"ERROR: Cannot find '{xlsx_path}'")
         print(f"Usage: python generate_curriculum.py [input.xlsx] [output.html]")
