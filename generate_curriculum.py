@@ -641,13 +641,6 @@ def main():
     xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
     html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
     html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
-    # Optional: --by "Name"
-    generated_by = None
-    if "--by" in args:
-        idx = args.index("--by")
-        if idx + 1 < len(args):
-            generated_by = args[idx + 1]
-
     if not xlsx_path.exists():
         print(f"ERROR: Cannot find '{xlsx_path}'")
         print(f"Usage: python generate_curriculum.py [input.xlsx] [output.html]")
