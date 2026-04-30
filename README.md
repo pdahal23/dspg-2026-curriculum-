@@ -62,7 +62,7 @@ The live site updates within about a minute of pushing.
 **Card colors** are assigned automatically based on keywords:
 - Workshop / Training / Lecture → purple
 - Deliverable / Deadline / Submit → green
-- Everything else → blue
+- Everything else → orange
 
 ---
 
