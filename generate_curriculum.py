@@ -427,7 +427,6 @@ document.addEventListener('DOMContentLoaded',()=>{injectDayNav();go('toc');});
 
 def gen_html(master_weeks, week_data, generated_by=None):
     today = datetime.date.today().strftime("%B %d, %Y")
-    now_time = datetime.datetime.now().strftime("%I:%M %p")
 
     # Count stats
     total_topics = sum(
@@ -616,7 +615,8 @@ def gen_html(master_weeks, week_data, generated_by=None):
     js = JS_TEMPLATE.replace("__DAY_MAP__", json.dumps(day_entries))
 
     by_str = f" &middot; {h(generated_by)}" if generated_by else ""
-    out.append(f'<div class="footer">DSPG 2026 &middot; Virginia Tech &middot; Generated {today}, {now_time}{by_str}</div>\n')
+    out.append(f'<div class="footer">DSPG 2026 &middot; Virginia Tech &middot; Generated {today}, <span id="gen-time"></span>{by_str}</div>\n')
+    out.append('<script>document.getElementById("gen-time").textContent=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});</script>\n')
     out.append(f'<script>{js}</script>\n')
     out.append('</div>\n</body>\n</html>\n')
 
