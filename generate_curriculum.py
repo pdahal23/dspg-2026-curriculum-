@@ -45,7 +45,7 @@ DEFAULT_XLSX = "curriculum-2026.xlsx"
 DEFAULT_HTML = "dspg_curriculum_2026.html"
 TITLE        = "DSPG Curriculum"
 SUBTITLE     = "Data Science for the Public Good · Virginia Tech"
-DATE_RANGE   = "May – August 2026"
+DATE_RANGE   = "May 24 – July 31, 2026"
 
 # Keywords that mark a day as a holiday / no-work day
 HOLIDAY_KEYWORDS = ["holiday", "no activities",
@@ -459,11 +459,7 @@ def gen_html(master_weeks, week_data, generated_by=None):
     <div class="sub"><a href="https://aaec.vt.edu/academics/undergraduate/dspg.html" target="_blank" style="color:inherit;text-decoration:none">Data Science for the Public Good</a> &middot; <a href="https://www.vt.edu/" target="_blank" style="color:inherit;text-decoration:none">Virginia Tech</a></div>
     <div class="dates">{DATE_RANGE}</div>
   </div>
-  <div class="toc-stats">
-    <div class="ts"><div class="ts-val" style="color:#861f41">{len(master_weeks)}</div><div class="ts-lbl" style="background:rgba(134,31,65,0.07);border:1px solid rgba(134,31,65,0.25);color:#861f41;padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#128197; Weeks</div></div>
-    <div class="ts"><div class="ts-val" style="color:var(--blue)">{total_milestones}</div><div class="ts-lbl" style="background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#127937; Milestones</div></div>
-    <div class="ts"><div class="ts-val" style="color:var(--green)">{sum(1 for m in master_weeks if m['deliverable'])}</div><div class="ts-lbl" style="background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:0.15rem 0.6rem;border-radius:6px;letter-spacing:0.08em">&#9989; Deliverables</div></div>
-  </div>
+
   <div class="toc-heading">Table of Contents</div>
 """)
 
