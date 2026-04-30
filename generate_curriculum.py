@@ -164,7 +164,9 @@ def parse_master(ws):
         if not label.lower().startswith("week"):
             continue
         num_match = re.search(r"\d+", label)
-        num = int(num_match.group()) if num_match else len(weeks) + 1
+        if not num_match:
+            continue  # skip header row "Weeks" which has no number
+        num = int(num_match.group())
         weeks.append({
             "num":        num,
             "topic":      str(row[1]).strip() if row[1] else "",
@@ -505,18 +507,12 @@ def gen_html(master_weeks, week_data, generated_by=None):
         nav_next = (f'<button class="nav-btn" onclick="go(\'week-{next_wn}\')">Week {next_wn} &rarr;</button>'
                     if next_wn else '<button class="nav-btn" onclick="go(\'toc\')">Contents &#8617;</button>')
 
-        milestone_badge = (f'<span class="wp-milestone">&#127937; {h(mw["milestone"])}</span>'
-                           if mw["milestone"] else "")
-        deliv_badge = (f'<span class="wp-deliv-badge">&#9989; {h(mw["deliverable"])}</span>'
-                       if mw["deliverable"] else "")
-
         out.append(f'<div class="page" id="week-{wn}">\n')
         out.append(f'  <div class="crumbs"><span class="crumb" onclick="go(\'toc\')">Contents</span>'
                    f'<span class="crumb-sep">/</span><span class="crumb-current">Week {wn}</span></div>\n')
         out.append(f'  <div class="wp-header">\n'
                    f'    <div class="wp-label">Week {wn}</div>\n'
                    f'    <h2 class="wp-title">{h(mw["topic"])}</h2>\n'
-                   f'    {milestone_badge}{deliv_badge}\n'
                    f'  </div>\n')
         out.append('  <div class="divider"></div>\n')
 
@@ -639,7 +635,6 @@ def main():
             generated_by = args[idx + 1]
         args = [a for i,a in enumerate(args) if a != "--by" and (i == 0 or args[i-1] != "--by")]
     xlsx_path = Path(args[0]) if len(args) >= 1 else Path(DEFAULT_XLSX)
-    html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
     html_path = Path(args[1]) if len(args) >= 2 else Path(DEFAULT_HTML)
     if not xlsx_path.exists():
         print(f"ERROR: Cannot find '{xlsx_path}'")
